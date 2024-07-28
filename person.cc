@@ -5,7 +5,7 @@
 #include"person.hpp"
 person::person(){}
 person::person(std::string name,uint16_t age,std::string citizen_id):m_name(name),m_age(age),m_citizen_id(citizen_id){
-  std::vector<char> v;
+  /*std::vector<char> v;
   v.push_back(citizen_id[6]);
   v.push_back(citizen_id[7]);
   v.push_back(citizen_id[8]);
@@ -20,8 +20,9 @@ person::person(std::string name,uint16_t age,std::string citizen_id):m_name(name
   }
   else{
     std::cout<<"***************************************"<<std::endl;
-    print();
-  }
+    person*p1=& person;
+    p1->print();
+  }*/
 }
 
 void person::print(){
@@ -39,9 +40,10 @@ student::~student(){
   std::cout<<"**********student destructor**************"<<std::endl;
 }
 void student::print(){
-
+  //person::print();
   std::cout<<"m_student_id:"<<m_student_id<<std::endl;
   std::cout<<"m_grade:"<<m_grade<<std::endl;
+  std::cout<<"*******************************************"<<std::endl;
 }
 
 
@@ -55,9 +57,20 @@ teacher::~teacher(){
   }
 }  
 
+
+
 void teacher::point(std::string name,uint16_t age,std::string citizen_id,uint64_t student_id,uint16_t grade){
   student*p=new student(name,age,citizen_id,student_id,grade);
   m_v.push_back(p);
 }
+
+
+void teacher::print(){
+  person::print();
+  std::cout<<"m_t_id:"<<m_t_id<<std::endl;
+  for(std::vector<student*>::iterator it=m_v.begin();it!=m_v.end();it++){
+    (*it)->print();
+  }
+}
  
-std::vector<student*> teacher::get(){return m_v;}
+std::vector<student*> const teacher::get(){return m_v;}
